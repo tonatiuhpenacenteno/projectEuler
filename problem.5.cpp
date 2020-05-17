@@ -9,6 +9,7 @@ What is the smallest positive number that is evenly divisible by all of the numb
 // Ans: bc <<< 'scale=3;1*5*7*9*11*13*16*17*19' = 232792560
 
 #include <iostream>
+#include <stdio.h>
 #include <math.h>
 
 using namespace std;
@@ -29,17 +30,19 @@ int isPrimeNumber(int n) {
 
 int main()
 {
-  double upperLimit = 10;
+  double upperLimit = 20;
   double lowerLimie = 1;
   double primeProduct = 1;
   int prevIter = 0;
   int iter = 1;
   int counter = 3;
-  int multiFactor = 1;
   int jiter = 1;
+  double multiFactor = pow(2, jiter-1)*pow(3,0);
   
   std::cout << "jiter:" << jiter << " ";
   std::cout << "cnt:" << counter << " ";
+  std::cout << "prevIter:" << prevIter << " ";
+  std::cout << "multiFactor:" << multiFactor << " ";
   
   while(iter <= upperLimit) {
 	
@@ -47,6 +50,11 @@ int main()
 	  counter = counter + 2;
 	  prevIter = iter;
 	  jiter++;
+	  if (jiter < 3) {
+	  	multiFactor = pow(2, jiter-1)*pow(3,0);
+	  } else {
+	  	multiFactor = pow(2, jiter-1)*pow(3,1);
+	  }		
 	}
 
 	if (isPrimeNumber(iter)) {
@@ -60,10 +68,12 @@ int main()
 	std::cout << "jiter:" << jiter << " ";
 	std::cout << "cnt:" << counter << " ";
 	std::cout << "prevIter:" << prevIter << " ";
+  	std::cout << "multiFactor:" << multiFactor << " ";
 
   }
   std::cout << "\n--------------------------------------\n";
-  std::cout << "primeProduct = " << primeProduct*multiFactor << "\n";	
-
+  printf("primeProduct = %12.0f\n", primeProduct);	
+  printf("Smallest multiple = %12.0f\n", primeProduct*multiFactor); 
+	
   return 0;
 }
