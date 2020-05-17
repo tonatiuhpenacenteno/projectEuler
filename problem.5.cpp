@@ -6,8 +6,6 @@ PROBLEM 5
 What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
 */
 
-// Ans: bc <<< 'scale=3;1*5*7*9*11*13*16*17*19' = 232792560
-
 #include <iostream>
 #include <stdio.h>
 #include <math.h>
