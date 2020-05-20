@@ -26,6 +26,6 @@ int main()
 	}
   }
 
-  std::cout << "###" << count << "\n";
+  std::cout << "Result = " << count << "\n";
   return  0;
 }

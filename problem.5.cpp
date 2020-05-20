@@ -4,6 +4,9 @@ PROBLEM 5
 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
 
 What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+
+Tonatiuh Pena-Centeno
+20-Mai-2020
 */
 
 #include <iostream>
@@ -26,9 +29,10 @@ int isPrimeNumber(int n) {
 }
 
 
+// TODO: modify so that it makes the calculation for numbers bigger than 20
 int main()
 {
-  double upperLimit = 20;
+  double upperLimit = 25;
   double lowerLimie = 1;
   double primeProduct = 1;
   int prevIter = 0;
