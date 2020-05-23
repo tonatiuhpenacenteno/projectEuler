@@ -28,23 +28,26 @@ int isPrimeNumber(int n) {
 
 int main()
 {
-  int upperLimit = 10001;
+  int location = 10001;
   int n = 2;
   int iter = 0;
   bool stop = false;
-  bool verbose = true;
+  int prime;
   
-  while (stop == false & iter < upperLimit) {
+  while (iter < location) {
 	
 	if (isPrimeNumber(n) == true) {
-	  std::cout << n << " : is prime ";
 	  iter++;
-	  std::cout << " (iter=" << iter << ")" << "\n"; 
+	  // std::cout << n << " : is prime ";
+	  // std::cout << " (iter=" << iter << ")" << "\n";
+	  prime = n;
 	}
-	
+
 	n++;
-	
+
   }
+  std::cout << prime << " : is prime ";
+  std::cout << " (iter=" << iter << ")" << "\n"; 
 
   
   return 0;
