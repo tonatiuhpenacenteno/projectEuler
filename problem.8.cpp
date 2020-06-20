@@ -28,6 +28,7 @@ The four adjacent digits in the 1000-digit number that have the greatest product
 Find the thirteen adjacent digits in the 1000-digit number that have the greatest product. 
 What is the value of this product?
 
+N.B. THIS SOLUTION DOESN'T WORK!
 
 Tonatiuh Pena-Centeno
 23-Mai-2020
@@ -42,72 +43,68 @@ Tonatiuh Pena-Centeno
 
 using namespace std;
 
+void reverseStr(string& str)
+{
+  int n = str.length();
+
+  // Swap character starting from two
+  // corners
+  for (int i = 0; i < n / 2; i++)
+	swap(str[i], str[n - i - 1]);
+} 
 
 int main()
 {
 
   std::string number = "7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450";
-  // int lengthAdjacentDigits = 13;  
-  // int lengthCurrent;
-  // std::vector<string> current;
-  // std::vector<int> tokens;
-  // std::string n;
-  // std::string temp;
-  // int x;
-  
-  // std::cout << "Length of string = " << number.length() << "\n";
 
-  // for(int it=0;it<number.length();it++) { //number.length();it++) {// Reading number digit by digit
-  // 	n = number.substr(it,1);
-	
-  // 	if (n != "0") {// Store digit in 'current' vector if diff from 0
-  // 	  current.push_back(n);
-  // 	} else {// If 0 has been found, print 'current' stored number, only if >= lengthAdjacentDigits
-  // 	  lengthCurrent = current.size();
-  // 	  if (lengthCurrent >= lengthAdjacentDigits) {
-  // 		std::cout << it << ":";
-  // 		for (int jit = 0; jit < current.size(); jit++) {
-  // 		  std::cout << current[jit];
-  // 		  temp.append(current[jit]);
-  // 		}
-  // 		std::cout << " " << "temp = " << temp << "\n";
-  // 		try {
-  // 		  std::cout << temp.substr(temp.find("9")) << "\n";
-  // 		} catch (exception& e) {
-  // 		  // cout << "substring does not contain '9'." << endl;
-  // 		}
-  // 		temp.clear();
-  // 		std::cout << "Length = " << lengthCurrent << "\n";
-  // 	  }
-  // 	  current.clear();
-  // 	}
-  // }
+  // reverseStr(number);
 
-  std::vector<string> current;
-  std::string n;
-  int LENGTH = 4;
+  std::cout << number << "\n";
   
-  for(int it=0;it<number.length();it++) { //number.length();it++) {// Reading number digit by digit
-  	n = number.substr(it,LENGTH);
-	// std::cout << it << ":" << n << "\n";	
-	if (n.size() == LENGTH & n.find("0") >= LENGTH) {// Store digit in 'current' vector if diff from 0
-	  current.push_back(n);
-	}
+  std::vector<string> chnkVect;
+  std::string chnk;
+  int LENGTH = 3;
+
+  // Splitting number in chunks of size LENGTH and storing them for later use
+  for(int it=0;it<number.length();it++) { 
+  	chnk = number.substr(it,LENGTH);
+  	// std::cout << it << ":" << chnk << "\n";	
+  	if (chnk.size() == LENGTH & chnk.find("0") >= LENGTH) {// Store chunks if they don't contain 0
+  	  chnkVect.push_back(chnk);
+  	}
   }
-  // std::cout << "length current: " << current.size() << "\n";
+  // std::cout << "length chnkVect: " << chnkVect.size() << "\n";
 
-  int digit;
-  for(int jit=0;jit<current.size();jit++) {
-	std::cout << "current[" << jit << "] = " << current[jit] << "\n";
-	stringstream test(current[jit]);
-	test >> digit;
-	std::cout << digit << "\n";
+  // Looping over all chunks, computing their product and obtaining the maximum
+  int intChnkVect;
+  int intDigit;
+  int maxProd = 1;
+  int maxDigit;
+  string strDigit;
+  int mult;
+  
+  for(int jit=0;jit<chnkVect.size();jit++) {
+  	std::cout << "chnkVect[" << jit << "] = " << chnkVect[jit] << "\n";
 
-	// Split digits and multiply them  
-	int Old = 1;
-	int New = 1;
-	int temp2 = 1;
-
+  	mult = 1;
+  	for(int kit=0;kit<chnkVect[jit].size();kit++) {
+  	  stringstream strToInt(chnkVect[jit]);
+  	  strToInt >> intChnkVect;
+	  
+  	  strDigit = chnkVect[jit].substr(kit,1);
+  	  stringstream strToInt2(strDigit);
+  	  strToInt2 >> intDigit;
+  	  // std::cout << strDigit << "\n";
+  	  // std::cout << intDigit << "\n";
+  	  mult *= intDigit;
+  	  if (mult > maxProd) {// & intChnkVect > maxDigit
+  		maxProd = mult;
+  		maxDigit = intChnkVect;
+  	  }
+  	}
+  	// std::cout << mult << "\n";
+  	std::cout << "(maxDigit, maxProd) = (" << maxDigit << "," << maxProd << ")" << "\n";		  
   }
   
   return 0;
