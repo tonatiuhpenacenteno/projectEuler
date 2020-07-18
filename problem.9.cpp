@@ -21,7 +21,8 @@ using namespace std;
 
 
 // We use a brute-force approach and generate Pythagorean triples over a
-// grid of 100 x 100
+// grid of 100 x 100.
+// Triplets generated based on: https://en.wikipedia.org/wiki/Pythagorean_triple
 int main() {
   int it, jit;
   float a, b, c;
