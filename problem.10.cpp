@@ -30,12 +30,11 @@ int isPrimeNumber(int n) {
 }
 
 // Function to check 'long int' overflow
-// Source: https://www.geeksforgeeks.org/int_max-int_min-cc-applications/
-long check_overflow(long num1, long num2) {
-  if (num1 > LONG_MAX - num2) {// Checking if sum will cause overflow
-	return -1;
-  } else { // No overflow
-	return num1 + num2;
+bool checkLONG(long num1) {
+  if (num1 > LONG_MAX) {
+	return true;
+  } else {
+	return false;
   }
 } 
 
@@ -46,12 +45,12 @@ int main() {
   
   for (it=2;it<limit;it++) {
 	if (isPrimeNumber(it)) {
-	  // total+=it;
-	  total = check_overflow(total, it);
-	  if (total == -1) {
+	  total+=it;
+	  if (checkLONG(total) == true) {
 	  	std::cout << "Overflow occurred at prime: " << it << "\n";
 	  	break;
 	  };
+	  //	  std::cout << total << "\n";
 	}	
   }
 	
