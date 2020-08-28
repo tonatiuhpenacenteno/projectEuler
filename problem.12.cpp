@@ -14,6 +14,7 @@ Tonatiuh Pena-Centeno
 
 using namespace std;
 
+// Generates triangular numbers: choose(n+1,2)
 int choose(int n, int k) {
   if (k == 0) {
 	return 1;
@@ -22,33 +23,37 @@ int choose(int n, int k) {
   }
 }
 
-// We generate triangular numbers
-int generateTriangular(int n) {
-  return choose(n+1,2);
+
+//Find divisors of a number
+int getDivisors(int n) {
+  int counter = 0;
+  
+  for (int i=1; i<=sqrt(n); i++) {
+	if (n%i == 0) {
+	  if (n/i == i) { // If divisors are equal, print only one
+		counter=counter+1;
+		// std::cout << i << ",";
+	  }  else { // Otherwise print both
+		counter=counter+2;
+		// std::cout << i << "," << n/i << ",";
+	  }
+	}
+  }
+  // std::cout << "\n";
+
+  return counter;
 }
 
-// Find divisors of a number
-int getDivisors(int n)
-{
-  int counter=0;
-  for (int it=1;it<=n;it++)
-	if (n%it==0) {
-	  // std::count << it << "\n";
-	  counter++;
-	}
-  return counter;
-} 
-
 int main() {
-  int tri;
+  int triangular;
   int lenDivisors = 0;
   int it = 1;
-  
-  while(lenDivisors <= 500) {
-	tri = generateTriangular(it);
-	lenDivisors = getDivisors(tri);
-	  
-	std::cout << it << ":" << tri << "=>" << lenDivisors << "\n";
+  int limit = 500;
+
+  while (lenDivisors < limit) {
+	triangular = choose(it+1,2);
+  	lenDivisors = getDivisors(triangular);
 	it++;
   }
+  std::cout << "it=" << it << " Number of divisors: " << lenDivisors << " triangular = " << triangular << "\n";
 }
