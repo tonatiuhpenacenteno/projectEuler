@@ -104,6 +104,9 @@ Work out the first ten digits of the sum of the following one-hundred 50-digit n
 
 NB. Compile with -std=c++11 function (for stoi)
 
+PERL solution!!!
+cat problem.13.number.txt | perl -ne 'chomp $_; $partial+=$_; print $partial."\n"; END{print "Total = ".$partial."\n"};'
+
 Tonatiuh Pena-Centeno
 1-September-2020
 */	
@@ -124,37 +127,44 @@ int main () {
 
   std::string line;
   std::vector<long long int> vec;
+  long long int partial = 0;
   int lineLength = 50;
   int chunkLength = 5;
   int times = 1;
   int intLine;
-  long long int partial = 0;
   int start, end;
-  int totalLines = 1;
+  int totalLines = 100;
   int lineCounter = 0;
   
-  std::ifstream myfile ("problem.13.number.txt");
-  if (myfile.is_open()) {
-	while (getline(myfile,line) && lineCounter < totalLines) {
-	  std::cout << "Reading line: " << lineCounter << "\n";
-	  std::cout << line << "\n";
 
-	  lineLength = line.length();
-	  for (int jit = 0; jit < lineLength/chunkLength; jit++) {
-		start = lineLength-(jit+1)*chunkLength;
-		end = start + chunkLength;
-		std::cout << "(" << start  << "): ";
-		std::cout << line.substr(start, chunkLength) << "\n";
+  for (int jit = 0; jit < lineLength/chunkLength; jit++) { //2; jit++) {
+	start = lineLength-(jit+1)*chunkLength;
+	end = start + chunkLength;
+	std::cout << "(" << start  << "): ";
+
+	std::ifstream myfile ("problem.13.number.txt");
+	if (myfile.is_open()) {
+	  while (getline(myfile,line) && lineCounter < totalLines) { //3) {
+		// std::cout << "Reading line: " << lineCounter << "\n";
+		// std::cout << line << "\n";
+		// std::cout << line.substr(start, chunkLength) << "\n";
+
+		stringstream sLine(line.substr(start, chunkLength)); 
+		sLine >> intLine;
+		partial += intLine;
+		
+		lineCounter++;
 	  }
-	  std::cout << "\n";
+	  std::cout << "partial result = " << partial << "\n";
+	  vec.push_back(partial);
+	  partial=0;
+	  lineCounter = 0;
 	  
-	  lineCounter++;
-	}	
-	myfile.close();
-  } else {
-	cout << "Unable to open file";
+	  myfile.close();
+	} else {
+	  cout << "Unable to open file";
+	}
   }
-
 
 
   return 0;
