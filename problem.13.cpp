@@ -165,8 +165,14 @@ int main () {
 	  cout << "Unable to open file";
 	}
   }
-
-
+  std::cout << "Finished adding-up numbers in segments \n";
+  
+  long long int myResult = 0;
+  for (int i = 1; i < 10; ++i) {
+	vec.at(i) = vec.at(i) + vec.at(i-1)/100000;
+  }
+  std::cout << vec.at(9) << "\n";
+  
   return 0;
 }
 
