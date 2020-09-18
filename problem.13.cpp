@@ -105,7 +105,7 @@ Work out the first ten digits of the sum of the following one-hundred 50-digit n
 NB. Compile with -std=c++11 function (for stoi)
 
 PERL solution!!!
-cat problem.13.number.txt | perl -ne 'chomp $_; $partial+=$_; print $partial."\n"; END{print "Total = ".$partial."\n"};'
+cat problem.13.number.txt | perl -ne 'chomp $_; $partial+=$_; print $partial."\n"; END{printf("Total = %30.0f\n", $partial)};'
 
 Tonatiuh Pena-Centeno
 1-September-2020
@@ -129,9 +129,9 @@ int main () {
   std::vector<long long int> vec;
   long long int partial = 0;
   int lineLength = 50;
-  int chunkLength = 5;
+  int chunkLength = 10;
   int times = 1;
-  int intLine;
+  long long int intLine;
   int start, end;
   int totalLines = 100;
   int lineCounter = 0;
@@ -140,7 +140,7 @@ int main () {
   for (int jit = 0; jit < lineLength/chunkLength; jit++) { //2; jit++) {
 	start = lineLength-(jit+1)*chunkLength;
 	end = start + chunkLength;
-	std::cout << "(" << start  << "): ";
+	std::cout << "(" << start  << "," << end << "): ";
 
 	std::ifstream myfile ("problem.13.number.txt");
 	if (myfile.is_open()) {
@@ -152,7 +152,7 @@ int main () {
 		stringstream sLine(line.substr(start, chunkLength)); 
 		sLine >> intLine;
 		partial += intLine;
-		
+
 		lineCounter++;
 	  }
 	  std::cout << "partial result = " << partial << "\n";
@@ -166,12 +166,13 @@ int main () {
 	}
   }
   std::cout << "Finished adding-up numbers in segments \n";
+  // std::cout << "Length result vector = " << vec.size() << "\n";
   
   long long int myResult = 0;
-  for (int i = 1; i < 10; ++i) {
-	vec.at(i) = vec.at(i) + vec.at(i-1)/100000;
+  for (int i = 1; i < vec.size(); i++) {
+	vec.at(i) = vec.at(i) + vec.at(i-1)/pow(10,chunkLength);
   }
-  std::cout << vec.at(9) << "\n";
+  std::cout << "Approximation result = " << vec.at((lineLength/chunkLength)-1) << "\n";
   
   return 0;
 }
